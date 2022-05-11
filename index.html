@@ -1,0 +1,144 @@
+<!-- 
+	Aaron Miller
+	CSC 485 (Senior Capstone)
+	Barnes-Hut Gravity Simulator
+	May 11, 2022
+-->
+
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+	<script src="bntree.js"></script>
+	<script src="graphics.js"></script>
+	<script src="input.js"></script>
+
+	<title>Barnes-Hut Gravity Simulator</title>
+</head>
+
+<body>
+	<canvas id="bnCanvas"></canvas>
+	<div id="data">
+	</div>
+	<div id="overlay">
+		<table>
+			<tr>
+				<td>
+					<h2>Barnes-Hut Gravity Simulator</h2>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>
+					<button type="button" id="startStopButton" onclick="startStopSys()">Play</button>
+					<button type="button" onclick="resetSys()">Reset</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+					<input type="number" id="bodiesToAdd" size="5" placeholder="Number of Bodies">
+					<button type="button" onclick="addNrandomBodies()">Add Random Bodies</button>
+				</td>
+			</tr>
+			<tr>
+				<td><hr>Trail Opacity</td>
+			</tr>
+			<tr>
+				<td>
+					0
+					<input id="opacitySlider" type="range" min="0" max="100" value="0" step=0.1 onchange="setOpacity(this.value)" />
+					100
+				</td>
+			</tr>
+			<tr id="realisticPhysicsLabel">
+				<td><hr>Speed Factor</td>
+			</tr>
+			<tr id="realisticPhysicsSlider">
+				<td>
+					0.0001
+					<input id="opacitySlider" type="range" min="-4" max="0.5" value="-2" step=0.0001 onchange="setDT(this.value)" />
+					10
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+					<label for="switch">Allow Collisions</label>
+					<input type="checkbox" id="switch" value="1" onclick="changeCollisions()">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+					<label for="colorpicker">Color of objects:</label>
+					<input type="color" id="colorpicker" value="#4287F5" onchange="setCircleColor()">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+					<label for="showAdditionalData">Show additional data</label>
+					<input type="checkbox" id="showAdditionalData" value="1" onclick="showData()">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+					<label for="makeRealistic">Realistic Physics Constants</label>
+					<input type="checkbox" id="makeRealistic" value="1" onclick="makeRealistic()">
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>
+					<h3>Add a specific object</h3>
+					<hr>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="number" id="xPosInput" size="5" placeholder="X (pixels)">
+					<input type="number" id="yPosInput" size="5" placeholder="Y (pixels)">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="number" id="xVelPosInput" size="5" placeholder="X-vel (pixels / s)">
+					<input type="number" id="yVelPosInput" size="5" placeholder="Y-vel (pixels / s)">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="number" id="massInput" size="5" placeholder="Mass (kg)*">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					*Object mass is multiplied by 10⁹ kg
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+					<button type="button" onclick="addSpecificObject()">Add Object</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+<script>
+	canvasElement = document.getElementById("bnCanvas");
+	canvasElement.width = window.innerWidth;
+	canvasElement.height = window.innerHeight;
+	
+	initBN("bnCanvas");
+	initGraphics("bnCanvas","data");
+	initUI("bnCanvas");
+</script>
+
+</body>
+
+</html>
